@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,10 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party
     'rest_framework',
     'corsheaders',
-    'api',  # your app
+
+    # your apps
+    'properties',
+    'users',
+    'payments',
+    'contacts',
+    "dashboard",
+    "core", 
+    "channels",
 ]
+ASGI_APPLICATION = "config.asgi.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,7 +72,8 @@ ROOT_URLCONF = 'sk_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+    
+        "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,6 +117,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -123,3 +142,28 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = 'users.User'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "SK Property Kings",
+    "site_header": "SK Admin Panel",
+    "site_brand": "SK Properties",
+
+    "welcome_sign": "Welcome to SK Property System",
+
+    "site_logo": "images/logo.png",
+    "login_logo": "images/logo.png",
+
+    "site_logo_classes": "img-circle",
+
+    "topmenu_links": [
+        {"name": "Dashboard", "url": "dashboard"},
+        {"model": "auth.User"},
+    ],
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+
+    "custom_css": "css/custom.css",
+}
