@@ -47,7 +47,7 @@ def pay(request):
         # =========================
         # AIRTEL PAYMENT
         # =========================
-        elif network == "Airtel":
+        elif network == "AIRTEL":
             ref, status, resp = request_airtel_payment(phone, amount)
 
         else:

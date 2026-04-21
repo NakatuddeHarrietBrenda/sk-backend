@@ -167,3 +167,6 @@ JAZZMIN_SETTINGS = {
 
     "custom_css": "css/custom.css",
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

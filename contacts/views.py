@@ -2,15 +2,17 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Contact
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-@csrf_exempt
+from .models import Contact
+
+@api_view(['POST'])
 def send_message(request):
-    data = json.loads(request.body)
-
     Contact.objects.create(
-        name=data["name"],
-        email=data["email"],
-        message=data["message"]
+        name=request.data.get("name"),
+        email=request.data.get("email"),
+        message=request.data.get("message")
     )
 
-    return JsonResponse({"message": "Message sent"})
+    return Response({"message": "Message sent"})
