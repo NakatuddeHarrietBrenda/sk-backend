@@ -10,3 +10,4 @@ class PropertyListCreateView(generics.ListCreateAPIView):
 class PropertyDetailView(generics.RetrieveDestroyAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
+    

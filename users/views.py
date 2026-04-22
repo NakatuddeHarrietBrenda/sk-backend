@@ -6,11 +6,20 @@ User = get_user_model()
 
 @api_view(['POST'])
 def register(request):
-    user = User.objects.create_user(
-        username=request.data.get("username"),
-        email=request.data.get("email"),
-        password=request.data.get("password"),
-        phone=request.data.get("phone"),
-    )
+    try:
+        user = User.objects.create_user(
+            username=request.data.get("username"),
+            email=request.data.get("email"),
+            password=request.data.get("password"),
+            phone_number=request.data.get("phone"), # Ensure this matches your User model
+        )
 
-    return Response({"message": "User created"})
+        return Response({
+            "message": "User created",
+            "user": {
+                "id": user.id,
+                "username": user.username
+            }
+        })
+    except Exception as e:
+        return Response({"error": str(e)}, status=400)

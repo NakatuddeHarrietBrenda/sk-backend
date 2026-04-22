@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "jazzmin",
 
     'django.contrib.admin',
@@ -53,7 +54,8 @@ INSTALLED_APPS = [
     "core", 
     "channels",
 ]
-ASGI_APPLICATION = "config.asgi.application"
+ASGI_APPLICATION = "sk_backend.asgi.application"
+WSGI_APPLICATION = "sk_backend.wsgi.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,7 +87,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sk_backend.wsgi.application'
+# WSGI_APPLICATION = 'sk_backend.wsgi.application'
 
 
 # Database
@@ -142,6 +144,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://your-frontend-domain.com",
+# ]
 
 AUTH_USER_MODEL = 'users.User'
 

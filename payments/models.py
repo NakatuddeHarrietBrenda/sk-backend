@@ -7,7 +7,7 @@ class Payment(models.Model):
 
     PAYMENT_METHODS = [
         ("MTN", "MTN"),
-        ("AIRTEL", "Airtel"),
+        ("AIRTEL", "AIRTEL"),
     ]
 
     STATUS = [

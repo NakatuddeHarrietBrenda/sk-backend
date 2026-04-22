@@ -45,19 +45,35 @@ def dashboard_stats(request):
 # =========================
 # 💳 RECENT PAYMENTS FEED
 # =========================
+# def recent_payments(request):
+
+#     payments = Payment.objects.order_by("-created_at")[:10]
+
+#     data = list(payments.values(
+#         "id",
+#         "amount",
+#         "method",
+#         "status",
+#         "created_at",
+#         "phone_number"
+#     ))
+
+#     return JsonResponse(data, safe=False)
+
+from django.utils import timezone
+
 def recent_payments(request):
-
     payments = Payment.objects.order_by("-created_at")[:10]
-
-    data = list(payments.values(
-        "id",
-        "amount",
-        "method",
-        "status",
-        "created_at",
-        "phone_number"
-    ))
-
+    data = []
+    for p in payments:
+        data.append({
+            "id": p.id,
+            "amount": float(p.amount), # JSON needs numbers, not Decimal objects
+            "method": p.method,
+            "status": p.status,
+            "created_at": p.created_at.strftime("%Y-%m-%d %H:%M"), # Format the date
+            "phone_number": p.phone_number
+        })
     return JsonResponse(data, safe=False)
 
 

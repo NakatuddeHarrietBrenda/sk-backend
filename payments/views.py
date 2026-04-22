@@ -6,6 +6,7 @@ import json
 from .models import Payment
 from .services.mtn import request_to_pay
 from .services.airtel import request_airtel_payment
+from .receipts import generate_receipt # Import your new function
 
 
 # =========================
@@ -117,3 +118,24 @@ def dashboard_stats(request):
         "total_payments": total,
         "revenue": float(revenue)
     })
+
+
+
+def receipt(request, transaction_id):
+    try:
+        payment = Payment.objects.get(transaction_id=transaction_id)
+        
+        # Generate the PDF and get the URL
+        pdf_url = generate_receipt(payment)
+
+        return JsonResponse({
+            "transaction_id": payment.transaction_id,
+            "amount": payment.amount,
+            "phone_number": payment.phone_number,
+            "method": payment.method,
+            "status": payment.status,
+            "pdf_url": request.build_absolute_uri(pdf_url) # Send full URL to React
+        })
+
+    except Payment.DoesNotExist:
+        return JsonResponse({"error": "Not found"}, status=404)
