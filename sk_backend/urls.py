@@ -18,6 +18,7 @@ urlpatterns = [
     path('admin/dashboard/', include('dashboard.urls')),
     path("api/users/", include("users.urls")),
 
+    path('admin/', admin_dashboard), # New: Redirects admin home to our nice dashboard
     path('admin/', admin.site.urls),
    
     path('dashboard/', admin_dashboard, name='dashboard'),

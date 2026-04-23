@@ -1,0 +1,12 @@
+django
+djangorestframework
+django-cors-headers
+reportlab
+requests
+Pillow
+djangorestframework-simplejwt
+python-dotenv
+django-jazzmin
+daphne
+channels
+python-decouple

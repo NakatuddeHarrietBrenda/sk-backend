@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # third party
     'rest_framework',
@@ -51,13 +52,13 @@ INSTALLED_APPS = [
     'payments',
     'contacts',
     "dashboard",
-    "core", 
     "channels",
 ]
 ASGI_APPLICATION = "sk_backend.asgi.application"
 WSGI_APPLICATION = "sk_backend.wsgi.application"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,8 +66,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'sk_backend.urls'
@@ -158,8 +157,8 @@ JAZZMIN_SETTINGS = {
 
     "welcome_sign": "Welcome to SK Property System",
 
-    "site_logo": "images/logo.png",
-    "login_logo": "images/logo.png",
+    "site_logo": "images/logo.jpeg",
+    "login_logo": "images/logo.jpeg",
 
     "site_logo_classes": "img-circle",
 

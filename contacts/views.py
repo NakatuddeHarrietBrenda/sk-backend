@@ -12,6 +12,7 @@ def send_message(request):
     Contact.objects.create(
         name=request.data.get("name"),
         email=request.data.get("email"),
+        phone=request.data.get("phone"),
         message=request.data.get("message")
     )
 

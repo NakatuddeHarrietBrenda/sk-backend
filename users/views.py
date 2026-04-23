@@ -11,7 +11,7 @@ def register(request):
             username=request.data.get("username"),
             email=request.data.get("email"),
             password=request.data.get("password"),
-            phone_number=request.data.get("phone"), # Ensure this matches your User model
+            phone=request.data.get("phone"), # Fixed field name to 'phone'
         )
 
         return Response({
@@ -23,3 +23,29 @@ def register(request):
         })
     except Exception as e:
         return Response({"error": str(e)}, status=400)
+
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+
+@api_view(['POST'])
+def login(request):
+    username = request.data.get("username")
+    password = request.data.get("password")
+
+    user = authenticate(username=username, password=password)
+
+    if user:
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "phone": user.phone,
+                "role": user.role
+            }
+        })
+    
+    return Response({"error": "Invalid credentials"}, status=401)

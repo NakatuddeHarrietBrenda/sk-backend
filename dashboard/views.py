@@ -6,6 +6,7 @@ from django.db.models import Sum
 from payments.models import Payment
 from properties.models import Property
 from users.models import User
+from contacts.models import Contact
 
 
 # =========================
@@ -18,7 +19,7 @@ def admin_dashboard(request):
         "total_users": User.objects.count(),
         "total_properties": Property.objects.count(),
         "total_payments": Payment.objects.count(),
-        "total_messages": 0,  # replace if you track contacts
+        "total_messages": Contact.objects.count(),
 
         "revenue": Payment.objects.filter(status="success").aggregate(
             total=Sum("amount")

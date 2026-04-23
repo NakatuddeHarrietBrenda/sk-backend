@@ -139,3 +139,18 @@ def receipt(request, transaction_id):
 
     except Payment.DoesNotExist:
         return JsonResponse({"error": "Not found"}, status=404)
+
+def user_payments(request, user_id):
+    payments = Payment.objects.filter(user_id=user_id).order_by("-created_at")
+    data = []
+    for p in payments:
+        data.append({
+            "id": p.id,
+            "property": p.property.title,
+            "amount": float(p.amount),
+            "status": p.status,
+            "method": p.method,
+            "transaction_id": p.transaction_id,
+            "date": p.created_at.strftime("%Y-%m-%d %H:%M")
+        })
+    return JsonResponse(data, safe=False)
